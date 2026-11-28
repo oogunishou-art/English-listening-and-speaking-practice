@@ -23,7 +23,10 @@ def header(path):
 
 EXTRA = '□■☆★✓✔●○◎△▲▼▶◀・…「」『』（）【】〜ー―－：；！？％＋／＝×÷①②③④⑤⑥⑦⑧⑨⑩→←↑↓、。ＡＢＣＤ０１２３４５６７８９'
 LAT = ''.join(chr(c) for c in list(range(0x20, 0x7f)) + list(range(0xa0, 0x180)) + list(range(0x250, 0x370)) +
-              [0x3b8, 0x3b2, 0x2013, 0x2014, 0x2019, 0x201c, 0x201d, 0x2026, 0x2192, 0x1d7b, 0x1d4a])
+              [0x3b8, 0x3b2, 0x2013, 0x2014, 0x2019, 0x201c, 0x201d, 0x2026, 0x2192, 0x1d7b, 0x1d4a,
+               0x2715, 0x2197, 0x2198])  # ✕ は Noto CJK にないので DejaVu から（PDF の文法「まちがえやすい言い方」）。↗↘ は発音のルールの上げ下げ
+# PDF を作るコードの中で使っている記号（DATA にはないので、check で別に確かめる）
+PDF_SYM = '✕↗↘○×△□✓→'
 
 if cmd == 'check':
     h = header(os.path.join(REPO, cur)); have = {int(k) for f in h.values() for k in f['cmap']}
@@ -35,7 +38,9 @@ if cmd == 'check':
     print('字形ファイル', cur)
     print('教材（DATA）で足りない文字', len(miss), ''.join(miss[:200]) or '')
     print('（参考）画面の文字で足りないもの', len(ui), ''.join(ui[:200]), '… PDF に出す見出しなどに使うときだけ問題')
-    sys.exit(1 if miss else 0)
+    sym = [c for c in PDF_SYM if ord(c) not in have]
+    print('PDF のコードで使う記号で足りないもの', len(sym), ''.join(sym))
+    sys.exit(1 if miss or sym else 0)
 
 if cmd == 'build':
     from fontTools.ttLib import TTCollection, TTFont, newTable

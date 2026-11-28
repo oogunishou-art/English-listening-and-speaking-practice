@@ -13,6 +13,12 @@
 | `tools/pdf_fonts.py` | PDF 用の字形ファイル `pdf-fonts-*.bin` の点検と作り直し |
 | `test/smoke.py` | 全タブを3つの画面サイズで開き、エラーと横のはみ出しを確かめる |
 | `test/srv.py` | テスト用サーバー（Range 対応） |
+| `test/crawl.py` | 総点検：全タブのボタンを2段まで自動で押し、エラー・はみ出し・ほかのタブが開けなくなる不具合を出す（20〜30分） |
+| `test/ear.py` | 総点検：音声を流して、イヤホンの次へ・前へ・猶予・連打・一時停止と、声のお知らせ7種を確かめる |
+| `test/nav.py` | 総点検：戻るボタン（タブ・設定・検索・ドライブモード・座学モード） |
+| `test/pdf_all.py` | 総点検：PDF を種類×用紙×テストで作り、「?」になった文字と確認テストの抜けを出す（/tmp/ge-pdf） |
+| `test/make_store.py` | 2か月ほど使った人の記録（store_rich.json）を作る。crawl.py --store などに渡す |
+| `test/pwh.py` | 上のテストの共通部品（テスト用サイト・サーバー・ページを開く） |
 | `examples/integrate_code.py` | 見本：画面・動きだけを変えるときの組み込み方 |
 | `examples/integrate_audio.py` | 見本：フレーズを音声つきで足すときの組み込み方 |
 
